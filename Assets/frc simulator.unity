@@ -350,21 +350,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &629199958
-Rigidbody:
+--- !u!114 &629199958
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 629199953}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 347a67bddcbd84d4fb40c7910e1cf154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0
+  turnSpeed: 0
 --- !u!1 &666997290
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,6 +440,7 @@ GameObject:
   - component: {fileID: 1176032436}
   - component: {fileID: 1176032435}
   - component: {fileID: 1176032439}
+  - component: {fileID: 1176032440}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Untagged
@@ -510,7 +509,7 @@ Transform:
   m_GameObject: {fileID: 1176032434}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3335125, y: 0.33025712, z: 2.9993854}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -526,7 +525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051e6e5ea9ea6f34a87dff14c8395803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 100
+  turnSpeed: 150
   _Velocity: 0
   _MaxVelocity: 8
   _MinVelocity: -8
@@ -534,6 +533,21 @@ MonoBehaviour:
   _AccSpeed: 0.1
   _MaxAcc: 1
   _MinAcc: -1
+--- !u!54 &1176032440
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1176032434}
+  serializedVersion: 2
+  m_Mass: 10
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1728680646
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,7 +629,7 @@ Transform:
   m_GameObject: {fileID: 1728680646}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 7.8044934, y: 7.80449, z: 7.80449}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
