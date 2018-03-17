@@ -4,7 +4,6 @@ using System.Collections;
 public class RobotMovement : MonoBehaviour {
 
 	public float moveSpeed;
-	public float Acceleration;
 
 	void Start ()
 	{
