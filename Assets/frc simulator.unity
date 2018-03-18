@@ -441,6 +441,7 @@ GameObject:
   - component: {fileID: 1176032435}
   - component: {fileID: 1176032439}
   - component: {fileID: 1176032440}
+  - component: {fileID: 1176032441}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Untagged
@@ -520,7 +521,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1176032434}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 051e6e5ea9ea6f34a87dff14c8395803, type: 3}
   m_Name: 
@@ -548,6 +549,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1176032441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1176032434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575491842d450d640940f415c228fe1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 12
+  turnSpeed: 120
 --- !u!1 &1728680646
 GameObject:
   m_ObjectHideFlags: 0

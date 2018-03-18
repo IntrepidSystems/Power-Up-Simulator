@@ -1,10 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\controllerMovement.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Playermovment.cs">
     <Files>
-      <File FileName="Assets\Scripts\Playermovment.cs" Line="29" Column="62" />
-      <File FileName="Assets\Scripts\controllerMovement.cs" Line="19" Column="151" />
-      <File FileName="Assets\Scripts\RobotMovement.cs" Line="6" Column="1" />
+      <File FileName="Assets\Scripts\Playermovment.cs" Line="20" Column="22" />
+      <File FileName="Assets\Scripts\controllerMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\RobotMovement.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

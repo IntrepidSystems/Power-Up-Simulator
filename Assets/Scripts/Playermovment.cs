@@ -16,10 +16,13 @@ public class Playermovment : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKey (KeyCode.UpArrow))
+		if (Input.GetButtonDown ("Vertical"))
 			_Acc += _AccSpeed;
 
-		if (Input.GetKey (KeyCode.DownArrow))
+		if (Input.GetButtonUp ("Vertical"))
+			_Velocity = 0f;
+		
+		if (Input.GetButtonDown("Horizontal"))
 			_Acc -= _AccSpeed;
 
 		if (Input.GetKey (KeyCode.LeftArrow))

@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\controllerMovement.cs" />
+     <Compile Include="Assets\Scripts\nickPlayerController.cs" />
      <Compile Include="Assets\Scripts\Playermovment.cs" />
      <Compile Include="Assets\Scripts\RobotMovement.cs" />
  <Reference Include="UnityEngine.UI">
