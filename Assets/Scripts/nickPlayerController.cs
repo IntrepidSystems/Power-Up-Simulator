@@ -20,9 +20,22 @@ public class nickPlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update(){
-		movementInputValue = Input.GetAxis("Vertical");
-		turnInputValue = Input.GetAxis ("Horizontal");
-	}
+        movementInputValue = 0;
+        if(Input.GetKey("up")) {
+            movementInputValue += 10;
+        }
+        if (Input.GetKey("down")) {
+            movementInputValue -= 10;
+        }
+
+        turnInputValue = 0;
+        if (Input.GetKey("right")) {
+            turnInputValue += 1;
+        }
+        if (Input.GetKey("left")) {
+            turnInputValue -= 1;
+        }
+    }
 
 	void FixedUpdate () {
 
