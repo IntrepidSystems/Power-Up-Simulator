@@ -46,6 +46,8 @@ public class nickPlayerController : MonoBehaviour {
 
 		m_RigidBody.MoveRotation (m_RigidBody.rotation * turnRotation);
 		m_RigidBody.MovePosition (m_RigidBody.position + movement);
-	}	
+
+        m_RigidBody.AddForce(new Vector3(0, (-1000 * m_RigidBody.transform.position.y) - 100, 0));
+	}
 
 }
