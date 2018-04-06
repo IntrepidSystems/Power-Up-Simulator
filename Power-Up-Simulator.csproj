@@ -285,7 +285,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ArmControlBasic.cs" />
     <Compile Include="Assets\Scripts\CubeIntakeTest.cs" />
-    <Compile Include="Assets\Scripts\nickPlayerController.cs" />
+    <Compile Include="Assets\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\WristControlBasic.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

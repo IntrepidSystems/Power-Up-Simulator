@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class CubeIntakeTest : MonoBehaviour {
 
+    Rigidbody body;
+    public GameObject wristCube;
+
 	// Use this for initialization
 	void Start () {
-        
+        body = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -15,8 +18,9 @@ public class CubeIntakeTest : MonoBehaviour {
 	}
 
     private void OnTriggerEnter(Collider other) {
-        if(other.tag.Equals("Intake")) {
-            this.gameObject.SetActive(false);
+        if(other.tag.Equals("Intake") && !wristCube.active) {
+            wristCube.active = true;
+            Destroy(this.gameObject);
         }
     }
 
