@@ -82,10 +82,10 @@ public class PlayerControl : MonoBehaviour {
             case ArmState.SCALEBACK:
                 if (wristControlScript.GetWristAngle() > -20.0f) {
                     armControlScript.SetArmPositionPID(57.0f);
-                    wristControlScript.SetWristPositionPID(-50.0f);
+                    wristControlScript.SetWristPositionPID(-30.0f);
                 } else {
                     armControlScript.SetArmPositionPID(-70.0f);
-                    wristControlScript.SetWristPositionPID(-50.0f);
+                    wristControlScript.SetWristPositionPID(-30.0f);
                 }
                 break;
 

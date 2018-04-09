@@ -9,11 +9,9 @@ public class WristControlBasic : MonoBehaviour
     public float wristP;
     public GameObject arm;
 
-    Rigidbody body;
-
     // Use this for initialization
     void Start() {
-        body = GetComponent<Rigidbody>();
+
     }
 
     // Update is called once per frame
@@ -22,7 +20,7 @@ public class WristControlBasic : MonoBehaviour
     }
 
     public void MoveWrist(float movementValue) {
-        body.transform.Rotate(new Vector3(movementValue, 0, 0));
+        this.gameObject.transform.Rotate(new Vector3(movementValue, 0, 0));
     }
 
     public void ManualWrist(string upKey, string downKey) {
@@ -37,7 +35,7 @@ public class WristControlBasic : MonoBehaviour
     }
 
     public float GetWristAngle() {
-        float angle = body.transform.localEulerAngles.x;
+        float angle = this.gameObject.transform.localEulerAngles.x;
         while (angle > 180.0f) {
             angle -= 360.0f;
         }
