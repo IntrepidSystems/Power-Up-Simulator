@@ -10,7 +10,6 @@ public class WristControlBasic : MonoBehaviour
     public GameObject arm;
 
     Rigidbody body;
-    float wristAngle = 7.0f;
 
     // Use this for initialization
     void Start() {

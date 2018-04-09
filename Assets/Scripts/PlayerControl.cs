@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
 
-    public GameObject arm, wrist, wristCube;
+    public GameObject arm, wrist, wristCube, field, cubePrefab;
+    public GameObject intakeBack;
     private ArmControlBasic armControlScript;
     private WristControlBasic wristControlScript;
 
     private Rigidbody body;
-	public float speed = 12f;
-	public float turnSpeed = 120;
+	public float turnSpeed = 120.0f;
+    public float maxSpeed = 120.0f;
+    public float forwardAccel = 10.0f;
+    public float forwardFriction;
 	private bool move;
 	private float movementInputValue;
 	private float turnInputValue;
@@ -33,13 +36,16 @@ public class PlayerControl : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-        movementInputValue = 0;
         if(Input.GetKey("up")) {
-            movementInputValue += 10;
+            movementInputValue += forwardAccel;
         }
         if (Input.GetKey("down")) {
-            movementInputValue -= 10;
+            movementInputValue -= forwardAccel;
         }
+        if(Mathf.Abs(movementInputValue) > maxSpeed) {
+            movementInputValue = maxSpeed * Mathf.Sign(movementInputValue);
+        }
+        movementInputValue -= (forwardFriction * movementInputValue);
 
         turnInputValue = 0;
         if (Input.GetKey("right")) {
@@ -56,20 +62,31 @@ public class PlayerControl : MonoBehaviour {
         } else if(Input.GetKey("w")) {
             currentArmState = ArmState.SCALEBACK;
         }
-        switch(currentArmState) {
+        switch (currentArmState) {
             case ArmState.ZERO:
                 armControlScript.SetArmPositionPID(57.0f);
                 wristControlScript.SetWristPositionPID(-65.0f);
                 break;
 
             case ArmState.INTAKE:
-                armControlScript.SetArmPositionPID(57.0f);
-                wristControlScript.SetWristPositionPID(47.0f);
+                if (armControlScript.GetArmAngle() < 0) {
+                    armControlScript.SetArmPositionPID(0.0f);
+                    wristControlScript.SetWristPositionPID(-50.0f);
+                }
+                else {
+                    armControlScript.SetArmPositionPID(57.0f);
+                    wristControlScript.SetWristPositionPID(47.0f);
+                }
                 break;
 
             case ArmState.SCALEBACK:
-                armControlScript.SetArmPositionPID(-31.0f);
-                wristControlScript.SetWristPositionPID(-27.0f);
+                if (wristControlScript.GetWristAngle() > -20.0f) {
+                    armControlScript.SetArmPositionPID(57.0f);
+                    wristControlScript.SetWristPositionPID(-50.0f);
+                } else {
+                    armControlScript.SetArmPositionPID(-70.0f);
+                    wristControlScript.SetWristPositionPID(-50.0f);
+                }
                 break;
 
             default:
@@ -80,16 +97,18 @@ public class PlayerControl : MonoBehaviour {
 
         if(Input.GetKey("space") && wristCube.active) {
             wristCube.SetActive(false);
+            GameObject newCube = Instantiate(cubePrefab, wristCube.transform.position + (1.5f * (wristCube.transform.position - intakeBack.transform.position)), wristCube.transform.rotation);
+            newCube.GetComponent<CubeIntakeTest>().wristCube = wristCube;
+            newCube.GetComponent<CubeIntakeTest>().enabled = true;
+            newCube.GetComponent<Rigidbody>().AddForce((10.0f * (wristCube.transform.position - intakeBack.transform.position)) + body.velocity, ForceMode.VelocityChange);
         }
 
         //armControlScript.ManualArm("w", "s");
         //wristControlScript.ManualWrist("a", "d");
-
-        print(GetArmWristReadout());
     }
 
 	void FixedUpdate() {
-		Vector3 movement = transform.forward * movementInputValue * speed * Time.deltaTime;
+		Vector3 movement = transform.forward * movementInputValue * Time.deltaTime;
 		float turn = turnInputValue * turnSpeed * Time.deltaTime;
 
 		Quaternion turnRotation = Quaternion.Euler (0f, turn, 0f);
