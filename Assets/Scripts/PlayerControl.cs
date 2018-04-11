@@ -130,8 +130,6 @@ public class PlayerControl : MonoBehaviour {
 
 		body.MoveRotation (body.rotation * turnRotation);
 		body.MovePosition (body.position + movement);
-
-        body.AddForce(new Vector3(0, (-1000 * body.transform.position.y) - 100, 0));
 	}
 
     public string GetArmWristReadout() {
