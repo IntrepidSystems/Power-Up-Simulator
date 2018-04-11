@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
 
+    public Camera intakingCamera, scoringCamera;
+
     public GameObject arm, wrist, wristCube, field, cubePrefab;
     public GameObject intakeBack;
     private ArmControlBasic armControlScript;
@@ -14,6 +16,7 @@ public class PlayerControl : MonoBehaviour {
     public float maxSpeed = 120.0f;
     public float forwardAccel = 10.0f;
     public float forwardFriction;
+    public float shotStrength;
 	private bool move;
 	private float movementInputValue;
 	private float turnInputValue;
@@ -100,8 +103,20 @@ public class PlayerControl : MonoBehaviour {
             GameObject newCube = Instantiate(cubePrefab, wristCube.transform.position + (1.5f * (wristCube.transform.position - intakeBack.transform.position)), wristCube.transform.rotation);
             newCube.GetComponent<CubeIntakeTest>().wristCube = wristCube;
             newCube.GetComponent<CubeIntakeTest>().enabled = true;
-            newCube.GetComponent<Rigidbody>().AddForce((10.0f * (wristCube.transform.position - intakeBack.transform.position)) + body.velocity, ForceMode.VelocityChange);
+            newCube.GetComponent<Rigidbody>().AddForce((shotStrength * (wristCube.transform.position - intakeBack.transform.position)) + body.velocity, ForceMode.VelocityChange);
         }
+
+        if(currentArmState == ArmState.INTAKE && armControlScript.GetArmAngle() > 30.0f && wristControlScript.GetWristAngle() > 30.0f) {
+            intakingCamera.enabled = true;
+        } else {
+            intakingCamera.enabled = false;
+        }
+        if(currentArmState == ArmState.SCALEBACK && armControlScript.GetArmAngle() < -50.0f && wristControlScript.GetWristAngle() < -20.0f) {
+            scoringCamera.enabled = true;
+        } else {
+            scoringCamera.enabled = false;
+        }
+
 
         //armControlScript.ManualArm("w", "s");
         //wristControlScript.ManualWrist("a", "d");
