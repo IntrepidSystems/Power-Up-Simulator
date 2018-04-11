@@ -21,7 +21,7 @@ public class PlayerControl : MonoBehaviour {
 	private float movementInputValue;
 	private float turnInputValue;
 
-    enum ArmState {ZERO, INTAKE, SCALEBACK, MANUAL};
+    enum ArmState {ZERO, INTAKE, SCALEBACK, SWITCH};
     private ArmState currentArmState = ArmState.ZERO;
 
 	void Start() {
@@ -64,6 +64,8 @@ public class PlayerControl : MonoBehaviour {
             currentArmState = ArmState.INTAKE;
         } else if(Input.GetKey("w")) {
             currentArmState = ArmState.SCALEBACK;
+        } else if(Input.GetKey("d")) {
+            currentArmState = ArmState.SWITCH;
         }
         switch (currentArmState) {
             case ArmState.ZERO:
@@ -92,6 +94,11 @@ public class PlayerControl : MonoBehaviour {
                 }
                 break;
 
+            case ArmState.SWITCH:
+                armControlScript.SetArmPositionPID(57.0f);
+                wristControlScript.SetWristPositionPID(0.0f);
+                break;
+
             default:
                 armControlScript.SetArmPositionPID(57.0f);
                 wristControlScript.SetWristPositionPID(-65.0f);
@@ -106,7 +113,7 @@ public class PlayerControl : MonoBehaviour {
             newCube.GetComponent<Rigidbody>().AddForce((shotStrength * (wristCube.transform.position - intakeBack.transform.position)) + body.velocity, ForceMode.VelocityChange);
         }
 
-        if(currentArmState == ArmState.INTAKE && armControlScript.GetArmAngle() > 30.0f && wristControlScript.GetWristAngle() > 30.0f) {
+        if((currentArmState == ArmState.INTAKE || currentArmState == ArmState.SWITCH) && armControlScript.GetArmAngle() > 30.0f && wristControlScript.GetWristAngle() > -1.0f) {
             intakingCamera.enabled = true;
         } else {
             intakingCamera.enabled = false;
