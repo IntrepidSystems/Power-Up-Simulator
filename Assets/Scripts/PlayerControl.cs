@@ -123,10 +123,6 @@ public class PlayerControl : MonoBehaviour {
         } else {
             scoringCamera.enabled = false;
         }
-
-
-        //armControlScript.ManualArm("w", "s");
-        //wristControlScript.ManualWrist("a", "d");
     }
 
 	void FixedUpdate() {
@@ -135,7 +131,7 @@ public class PlayerControl : MonoBehaviour {
 
 		Quaternion turnRotation = Quaternion.Euler (0f, turn, 0f);
 
-        Vector3 upDownForce = new Vector3(0, transform.position.y * -0.25f, 0);
+        Vector3 upDownForce = new Vector3(0, transform.position.y * -0.15f, 0);
 
 		body.MoveRotation (body.rotation * turnRotation);
 		body.MovePosition (body.position + movement + upDownForce);

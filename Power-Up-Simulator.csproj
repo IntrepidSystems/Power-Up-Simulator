@@ -285,6 +285,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ArmControlBasic.cs" />
     <Compile Include="Assets\Scripts\CubeIntakeTest.cs" />
+    <Compile Include="Assets\Scripts\LightManagingScript.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\RobotCameraFollower.cs" />
     <Compile Include="Assets\Scripts\SimpleCarController.cs" />
