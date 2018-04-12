@@ -288,6 +288,7 @@
     <Compile Include="Assets\Scripts\LightManagingScript.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\RobotCameraFollower.cs" />
+    <Compile Include="Assets\Scripts\Scorekeeper.cs" />
     <Compile Include="Assets\Scripts\SimpleCarController.cs" />
     <Compile Include="Assets\Scripts\WristControlBasic.cs" />
   </ItemGroup>
