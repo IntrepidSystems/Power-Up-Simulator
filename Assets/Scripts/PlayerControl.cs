@@ -135,8 +135,11 @@ public class PlayerControl : MonoBehaviour {
 
 		Quaternion turnRotation = Quaternion.Euler (0f, turn, 0f);
 
+        Vector3 upDownForce = new Vector3(0, transform.position.y * -0.25f, 0);
+
 		body.MoveRotation (body.rotation * turnRotation);
-		body.MovePosition (body.position + movement);
+		body.MovePosition (body.position + movement + upDownForce);
+        body.AddForce(new Vector3(0, transform.position.y * -100000.0f, 0));
 	}
 
     public string GetArmWristReadout() {
