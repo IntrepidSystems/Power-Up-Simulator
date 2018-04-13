@@ -71,8 +71,6 @@ public class Scorekeeper : MonoBehaviour {
 
 
 
-        print(redCloseSwitchOwnershipText.text);
-
         if (redSwitchAngle > -4.0f && redSwitchAngle < -2.0f) {
             redCloseSwitchOwnershipText.enabled = true;
             blueCloseSwitchOwnershipText.enabled = false;

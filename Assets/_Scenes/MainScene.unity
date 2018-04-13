@@ -2131,7 +2131,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 55953537}
   serializedVersion: 2
-  m_Mass: 10000
+  m_Mass: 1000
   m_Drag: 0
   m_AngularDrag: 2.5
   m_UseGravity: 1
@@ -6760,7 +6760,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 235479507}
   serializedVersion: 2
-  m_Mass: 10000
+  m_Mass: 1000
   m_Drag: 0
   m_AngularDrag: 1.25
   m_UseGravity: 1
@@ -9471,7 +9471,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 315332271}
   m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
-  m_LocalPosition: {x: 104.4, y: 72.1, z: -365.3}
+  m_LocalPosition: {x: 120.1, y: 60, z: -340}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -9629,7 +9629,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 319809560}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -110.1, y: 0, z: -303.8}
+  m_LocalPosition: {x: -110.1, y: 0, z: -304.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1890733007}
@@ -9655,8 +9655,8 @@ MonoBehaviour:
   field: {fileID: 1901008464}
   cubePrefab: {fileID: 1136562449495194, guid: 1d0fcbc815775584597993999ac454f1, type: 2}
   intakeBack: {fileID: 1668710349}
-  turnSpeed: 120
-  maxSpeed: 250
+  turnSpeed: 400000000
+  maxSpeed: 2000
   forwardAccel: 4
   forwardFriction: 0.025
   shotStrength: 8
@@ -9669,7 +9669,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 200
   m_Drag: 10
-  m_AngularDrag: 1.5
+  m_AngularDrag: 25
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -20177,7 +20177,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &647739173
 Transform:
   m_ObjectHideFlags: 0
@@ -23918,7 +23918,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &710504641
 Transform:
   m_ObjectHideFlags: 0
@@ -24223,7 +24223,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &716440614
 Transform:
   m_ObjectHideFlags: 0
@@ -37193,7 +37193,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1102042627
 Transform:
   m_ObjectHideFlags: 0
@@ -41197,7 +41197,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1242384737}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -42699,7 +42699,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1290578380}
   serializedVersion: 2
-  m_Mass: 10000
+  m_Mass: 1000
   m_Drag: 0
   m_AngularDrag: 2.5
   m_UseGravity: 1
@@ -43418,7 +43418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1315602565
 Transform:
   m_ObjectHideFlags: 0
@@ -48848,7 +48848,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1475363550}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -51028,7 +51028,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1538055879
 Transform:
   m_ObjectHideFlags: 0
@@ -54420,7 +54420,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1628851258}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -67228,7 +67228,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1933835342}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1

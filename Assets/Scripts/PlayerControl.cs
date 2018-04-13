@@ -11,6 +11,8 @@ public class PlayerControl : MonoBehaviour {
     private ArmControlBasic armControlScript;
     private WristControlBasic wristControlScript;
 
+    //public Rigidbody frontBumper, leftBumper, rightBumper, backBumper;
+
     private Rigidbody body;
 	public float turnSpeed = 120.0f;
     public float maxSpeed = 120.0f;
@@ -123,10 +125,15 @@ public class PlayerControl : MonoBehaviour {
         } else {
             scoringCamera.enabled = false;
         }
+
+        //leftBumper.AddForce(new Vector3(0, (leftBumper.transform.position.y > 4.0f) ? 50000 * (4.0f - leftBumper.transform.position.y) : 0), 0);
+        //rightBumper.AddForce(new Vector3(0, (rightBumper.transform.position.y > 4.0f) ? 50000 * (4.0f - rightBumper.transform.position.y) : 0), 0);
+        //frontBumper.AddForce(new Vector3(0, (frontBumper.transform.position.y > 4.0f) ? 50000 * (4.0f - frontBumper.transform.position.y) : 0), 0);
+        //backBumper.AddForce(new Vector3(0, (backBumper.transform.position.y > 4.0f) ? 50000 * (4.0f - backBumper.transform.position.y) : 0), 0);
     }
 
 	void FixedUpdate() {
-		Vector3 movement = transform.forward * movementInputValue * Time.deltaTime;
+        /*Vector3 movement = transform.forward * movementInputValue * Time.deltaTime;
 		float turn = turnInputValue * turnSpeed * Time.deltaTime;
 
 		Quaternion turnRotation = Quaternion.Euler (0f, turn, 0f);
@@ -135,7 +142,14 @@ public class PlayerControl : MonoBehaviour {
 
 		body.MoveRotation (body.rotation * turnRotation);
 		body.MovePosition (body.position + movement + upDownForce);
-        body.AddForce(new Vector3(0, transform.position.y * -100000.0f, 0));
+        body.AddForce(new Vector3(0, transform.position.y * -100000.0f, 0));*/
+
+        Vector3 movement = new Vector3(transform.forward.x, 0, transform.forward.z) * (Input.GetAxis("Vertical") * maxSpeed * Time.deltaTime);
+        float turn = turnInputValue * turnSpeed * Time.deltaTime;
+        Vector3 upDownForce = new Vector3(0, transform.position.y * -0.15f, 0);
+
+        body.AddRelativeTorque(new Vector3(0, turn, 0));
+        body.AddForce(movement, ForceMode.VelocityChange);
 	}
 
     public string GetArmWristReadout() {
