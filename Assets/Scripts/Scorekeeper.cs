@@ -8,6 +8,9 @@ public class Scorekeeper : MonoBehaviour {
     public GameObject scale, redSwitch, blueSwitch;
     public Text redScoreText, blueScoreText;
 
+    public Text redCloseSwitchOwnershipText, redScaleOwnershipText, redFarSwitchOwnershipText;
+    public Text blueCloseSwitchOwnershipText, blueScaleOwnershipText, blueFarSwitchOwnershipText;
+
     private int redScore, blueScore;
 
 	// Use this for initialization
@@ -65,6 +68,64 @@ public class Scorekeeper : MonoBehaviour {
             totalBlueAddition += 1;
         }
         blueScore += totalBlueAddition;
+
+
+
+        print(redCloseSwitchOwnershipText.text);
+
+        if (redSwitchAngle > -4.0f && redSwitchAngle < -2.0f) {
+            redCloseSwitchOwnershipText.enabled = true;
+            blueCloseSwitchOwnershipText.enabled = false;
+        }
+        else if (redSwitchAngle > -2.0f && redSwitchAngle < 2.0f) {
+            redCloseSwitchOwnershipText.enabled = false;
+            blueCloseSwitchOwnershipText.enabled = false;
+        }
+        else if (redSwitchAngle > 2.0f && redSwitchAngle < 4.0f) {
+            redCloseSwitchOwnershipText.enabled = false;
+            blueCloseSwitchOwnershipText.enabled = true;
+        } else {
+            redCloseSwitchOwnershipText.enabled = false;
+            blueCloseSwitchOwnershipText.enabled = false;
+        }
+
+
+        if (scaleAngle > -9.0f && scaleAngle < -4.0f) {
+            redScaleOwnershipText.enabled = true;
+            blueScaleOwnershipText.enabled = false;
+        }
+        else if (scaleAngle > -4.0f && scaleAngle < 4.0f) {
+            redScaleOwnershipText.enabled = false;
+            blueScaleOwnershipText.enabled = false;
+        }
+        else if (scaleAngle > 4.0f && scaleAngle < 9.0f) {
+            redScaleOwnershipText.enabled = false;
+            blueScaleOwnershipText.enabled = true;
+        }
+        else {
+            redScaleOwnershipText.enabled = false;
+            blueScaleOwnershipText.enabled = false;
+        }
+
+
+        if (blueSwitchAngle > -4.0f && blueSwitchAngle < -2.0f) {
+            redFarSwitchOwnershipText.enabled = true;
+            blueFarSwitchOwnershipText.enabled = false;
+        }
+        else if (blueSwitchAngle > -2.0f && blueSwitchAngle < 2.0f) {
+            redFarSwitchOwnershipText.enabled = false;
+            blueFarSwitchOwnershipText.enabled = false;
+        }
+        else if (blueSwitchAngle > 2.0f && blueSwitchAngle < 4.0f) {
+            redFarSwitchOwnershipText.enabled = false;
+            blueFarSwitchOwnershipText.enabled = true;
+        }
+        else {
+            redFarSwitchOwnershipText.enabled = false;
+            blueFarSwitchOwnershipText.enabled = false;
+        }
+
+
     }
 
 }
