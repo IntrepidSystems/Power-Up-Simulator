@@ -60,13 +60,13 @@ public class PlayerControl : MonoBehaviour {
             turnInputValue -= 1;
         }
 
-        if(Input.GetKey("a")) {
+        if(Input.GetKey(KeyCode.Joystick1Button1)) {
             currentArmState = ArmState.ZERO;
-        } else if(Input.GetKey("s")) {
+        } else if(Input.GetKey(KeyCode.Joystick1Button0)) {
             currentArmState = ArmState.INTAKE;
-        } else if(Input.GetKey("w")) {
+        } else if(Input.GetKey(KeyCode.Joystick1Button3)) {
             currentArmState = ArmState.SCALEBACK;
-        } else if(Input.GetKey("d")) {
+        } else if(Input.GetKey(KeyCode.Joystick1Button2)) {
             currentArmState = ArmState.SWITCH;
         }
         switch (currentArmState) {
@@ -107,7 +107,7 @@ public class PlayerControl : MonoBehaviour {
                 break;
         }
 
-        if(Input.GetKey("space") && wristCube.active) {
+        if(Input.GetAxis("Fire1") > 0.25 && wristCube.active) {
             wristCube.SetActive(false);
             GameObject newCube = Instantiate(cubePrefab, wristCube.transform.position + (1.5f * (wristCube.transform.position - intakeBack.transform.position)), wristCube.transform.rotation);
             newCube.GetComponent<CubeIntakeTest>().wristCube = wristCube;
@@ -115,7 +115,7 @@ public class PlayerControl : MonoBehaviour {
             newCube.GetComponent<Rigidbody>().AddForce((shotStrength * (wristCube.transform.position - intakeBack.transform.position)) + body.velocity, ForceMode.VelocityChange);
         }
 
-        if((currentArmState == ArmState.INTAKE || currentArmState == ArmState.SWITCH) && armControlScript.GetArmAngle() > 30.0f && wristControlScript.GetWristAngle() > -1.0f) {
+        /*if((currentArmState == ArmState.INTAKE || currentArmState == ArmState.SWITCH) && armControlScript.GetArmAngle() > 30.0f && wristControlScript.GetWristAngle() > -1.0f) {
             intakingCamera.enabled = true;
         } else {
             intakingCamera.enabled = false;
@@ -124,7 +124,7 @@ public class PlayerControl : MonoBehaviour {
             scoringCamera.enabled = true;
         } else {
             scoringCamera.enabled = false;
-        }
+        }*/
 
         //leftBumper.AddForce(new Vector3(0, (leftBumper.transform.position.y > 4.0f) ? 50000 * (4.0f - leftBumper.transform.position.y) : 0), 0);
         //rightBumper.AddForce(new Vector3(0, (rightBumper.transform.position.y > 4.0f) ? 50000 * (4.0f - rightBumper.transform.position.y) : 0), 0);
@@ -144,8 +144,8 @@ public class PlayerControl : MonoBehaviour {
 		body.MovePosition (body.position + movement + upDownForce);
         body.AddForce(new Vector3(0, transform.position.y * -100000.0f, 0));*/
 
-        Vector3 movement = new Vector3(transform.forward.x, 0, transform.forward.z) * (Input.GetAxis("Vertical") * maxSpeed * Time.deltaTime);
-        float turn = turnInputValue * turnSpeed * Time.deltaTime;
+        Vector3 movement = (new Vector3(transform.forward.x, 0, transform.forward.z)) * (-1 * (Mathf.Sqrt(Mathf.Abs(Input.GetAxis("Vertical"))) * Mathf.Sign(Input.GetAxis("Vertical")))) * maxSpeed * Time.deltaTime;
+        float turn = (Mathf.Sqrt(Mathf.Abs(Input.GetAxis("Horizontal"))) * Mathf.Sign(Input.GetAxis("Horizontal"))) * turnSpeed * Time.deltaTime;
         Vector3 upDownForce = new Vector3(0, transform.position.y * -0.15f, 0);
 
         body.AddRelativeTorque(new Vector3(0, turn, 0));
