@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Cube
   - Intake
+  - Left Intake Wheel
+  - Right Intake Wheel
   layers:
   - Default
   - TransparentFX

@@ -7,24 +7,21 @@ public class PlayerControl : MonoBehaviour {
     public Camera intakingCamera, scoringCamera;
 
     public GameObject arm, wrist, wristCube, field, cubePrefab;
-    public GameObject intakeBack;
+    public GameObject frontWheel, backWheel;
     private ArmControlBasic armControlScript;
     private WristControlBasic wristControlScript;
-
-    //public Rigidbody frontBumper, leftBumper, rightBumper, backBumper;
-
+    
     private Rigidbody body;
 	public float turnSpeed = 120.0f;
     public float maxSpeed = 120.0f;
-    public float forwardAccel = 10.0f;
-    public float forwardFriction;
     public float shotStrength;
-	private bool move;
-	private float movementInputValue;
-	private float turnInputValue;
+
+    public WheelCollider fl, ml, rl, fr, mr, rr;
 
     enum ArmState {ZERO, INTAKE, SCALEBACK, SWITCH};
     private ArmState currentArmState = ArmState.ZERO;
+
+    public Rigidbody leftBumper, rightBumper, frontBumper, backBumper;
 
 	void Start() {
 		body = GetComponent<Rigidbody>();
@@ -41,25 +38,6 @@ public class PlayerControl : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-        if(Input.GetKey("up")) {
-            movementInputValue += forwardAccel;
-        }
-        if (Input.GetKey("down")) {
-            movementInputValue -= forwardAccel;
-        }
-        if(Mathf.Abs(movementInputValue) > maxSpeed) {
-            movementInputValue = maxSpeed * Mathf.Sign(movementInputValue);
-        }
-        movementInputValue -= (forwardFriction * movementInputValue);
-
-        turnInputValue = 0;
-        if (Input.GetKey("right")) {
-            turnInputValue += 1;
-        }
-        if (Input.GetKey("left")) {
-            turnInputValue -= 1;
-        }
-
         if(Input.GetKey(KeyCode.Joystick1Button1)) {
             currentArmState = ArmState.ZERO;
         } else if(Input.GetKey(KeyCode.Joystick1Button0)) {
@@ -71,68 +49,75 @@ public class PlayerControl : MonoBehaviour {
         }
         switch (currentArmState) {
             case ArmState.ZERO:
-                armControlScript.SetArmPositionPID(57.0f);
-                wristControlScript.SetWristPositionPID(-65.0f);
+                armControlScript.SetArmPositionPID(-63.0f);
+                wristControlScript.SetWristPositionPID(70.0f);
                 break;
 
             case ArmState.INTAKE:
-                if (armControlScript.GetArmAngle() < 0) {
-                    armControlScript.SetArmPositionPID(0.0f);
-                    wristControlScript.SetWristPositionPID(-50.0f);
+                if (armControlScript.GetArmAngle() > -20.0f) {
+                    armControlScript.SetArmPositionPID(-63.0f);
+                    wristControlScript.SetWristPositionPID(70.0f);
                 }
                 else {
-                    armControlScript.SetArmPositionPID(57.0f);
-                    wristControlScript.SetWristPositionPID(47.0f);
+                    armControlScript.SetArmPositionPID(-63.0f);
+                    wristControlScript.SetWristPositionPID(-42.5f);
                 }
                 break;
 
             case ArmState.SCALEBACK:
-                if (wristControlScript.GetWristAngle() > -20.0f) {
-                    armControlScript.SetArmPositionPID(57.0f);
-                    wristControlScript.SetWristPositionPID(-30.0f);
+                if (wristControlScript.GetWristAngle() < 0.0f) {
+                    armControlScript.SetArmPositionPID(-63.0f);
+                    wristControlScript.SetWristPositionPID(70.0f);
                 } else {
-                    armControlScript.SetArmPositionPID(-70.0f);
-                    wristControlScript.SetWristPositionPID(-30.0f);
+                    armControlScript.SetArmPositionPID(70.0f);
+                    wristControlScript.SetWristPositionPID(50.0f);
                 }
                 break;
 
             case ArmState.SWITCH:
-                armControlScript.SetArmPositionPID(57.0f);
-                wristControlScript.SetWristPositionPID(0.0f);
+                armControlScript.SetArmPositionPID(-63.0f);
+                wristControlScript.SetWristPositionPID(10.0f);
                 break;
 
             default:
-                armControlScript.SetArmPositionPID(57.0f);
-                wristControlScript.SetWristPositionPID(-65.0f);
+                armControlScript.SetArmPositionPID(-63.0f);
+                wristControlScript.SetWristPositionPID(70.0f);
                 break;
         }
 
         if(Input.GetAxis("Fire1") > 0.25 && wristCube.active) {
             wristCube.SetActive(false);
-            GameObject newCube = Instantiate(cubePrefab, wristCube.transform.position + (1.5f * (wristCube.transform.position - intakeBack.transform.position)), wristCube.transform.rotation);
-            newCube.GetComponent<CubeIntakeTest>().wristCube = wristCube;
+            GameObject newCube = Instantiate(cubePrefab, wristCube.transform.position + (2.25f * (frontWheel.transform.position - backWheel.transform.position)), wristCube.transform.rotation);
             newCube.GetComponent<CubeIntakeTest>().enabled = true;
-            newCube.GetComponent<Rigidbody>().AddForce((shotStrength * (wristCube.transform.position - intakeBack.transform.position)) + body.velocity, ForceMode.VelocityChange);
+            newCube.GetComponent<Rigidbody>().AddForce((shotStrength * (frontWheel.transform.position - backWheel.transform.position) + body.velocity), ForceMode.VelocityChange);
         }
 
-        /*if((currentArmState == ArmState.INTAKE || currentArmState == ArmState.SWITCH) && armControlScript.GetArmAngle() > 30.0f && wristControlScript.GetWristAngle() > -1.0f) {
+        if (leftBumper.transform.position.y > 6) {
+            leftBumper.AddForce(new Vector3(0, -100000.0f * (leftBumper.transform.position.y - 6.0f), 0));
+        }
+        if (rightBumper.transform.position.y > 6) {
+            rightBumper.AddForce(new Vector3(0, -100000.0f * (rightBumper.transform.position.y - 6.0f), 0));
+        }
+        if (frontBumper.transform.position.y > 6) {
+            frontBumper.AddForce(new Vector3(0, -100000.0f * (frontBumper.transform.position.y - 6.0f), 0));
+        }
+        if (backBumper.transform.position.y > 6) {
+            backBumper.AddForce(new Vector3(0, -100000.0f * (backBumper.transform.position.y - 6.0f), 0));
+        }
+
+        if((currentArmState == ArmState.INTAKE || currentArmState == ArmState.SWITCH)) {
             intakingCamera.enabled = true;
         } else {
             intakingCamera.enabled = false;
         }
-        if(currentArmState == ArmState.SCALEBACK && armControlScript.GetArmAngle() < -50.0f && wristControlScript.GetWristAngle() < -20.0f) {
+       /* if(currentArmState == ArmState.SCALEBACK && armControlScript.GetArmAngle() < -50.0f && wristControlScript.GetWristAngle() < -20.0f) {
             scoringCamera.enabled = true;
         } else {
             scoringCamera.enabled = false;
-        }*/
-
-        //leftBumper.AddForce(new Vector3(0, (leftBumper.transform.position.y > 4.0f) ? 50000 * (4.0f - leftBumper.transform.position.y) : 0), 0);
-        //rightBumper.AddForce(new Vector3(0, (rightBumper.transform.position.y > 4.0f) ? 50000 * (4.0f - rightBumper.transform.position.y) : 0), 0);
-        //frontBumper.AddForce(new Vector3(0, (frontBumper.transform.position.y > 4.0f) ? 50000 * (4.0f - frontBumper.transform.position.y) : 0), 0);
-        //backBumper.AddForce(new Vector3(0, (backBumper.transform.position.y > 4.0f) ? 50000 * (4.0f - backBumper.transform.position.y) : 0), 0);
+        } */
     }
 
-	void FixedUpdate() {
+    void FixedUpdate() {
         /*Vector3 movement = transform.forward * movementInputValue * Time.deltaTime;
 		float turn = turnInputValue * turnSpeed * Time.deltaTime;
 
@@ -144,13 +129,18 @@ public class PlayerControl : MonoBehaviour {
 		body.MovePosition (body.position + movement + upDownForce);
         body.AddForce(new Vector3(0, transform.position.y * -100000.0f, 0));*/
 
-        Vector3 movement = (new Vector3(transform.forward.x, 0, transform.forward.z)) * (-1 * (Mathf.Sqrt(Mathf.Abs(Input.GetAxis("Vertical"))) * Mathf.Sign(Input.GetAxis("Vertical")))) * maxSpeed * Time.deltaTime;
-        float turn = (Mathf.Sqrt(Mathf.Abs(Input.GetAxis("Horizontal"))) * Mathf.Sign(Input.GetAxis("Horizontal"))) * turnSpeed * Time.deltaTime;
+        Vector3 movement = (new Vector3(transform.forward.x, 0.0f, transform.forward.z)) * (1 * (Mathf.Sqrt(Mathf.Abs(Input.GetAxis("Vertical"))) * Mathf.Sign(Input.GetAxis("Vertical")))) * maxSpeed * Time.deltaTime;
+        float turn = (Mathf.Pow((Mathf.Abs(Input.GetAxis("Horizontal"))), 4) * Mathf.Sign(Input.GetAxis("Horizontal"))) * turnSpeed * Time.deltaTime;
         Vector3 upDownForce = new Vector3(0, transform.position.y * -0.15f, 0);
 
         body.AddRelativeTorque(new Vector3(0, turn, 0));
-        body.AddForce(movement, ForceMode.VelocityChange);
-	}
+        body.AddForceAtPosition(0.166f * movement, fl.transform.position, ForceMode.VelocityChange);
+        body.AddForceAtPosition(0.166f * movement, ml.transform.position, ForceMode.VelocityChange);
+        body.AddForceAtPosition(0.166f * movement, rl.transform.position, ForceMode.VelocityChange);
+        body.AddForceAtPosition(0.166f * movement, fr.transform.position, ForceMode.VelocityChange);
+        body.AddForceAtPosition(0.166f * movement, mr.transform.position, ForceMode.VelocityChange);
+        body.AddForceAtPosition(0.166f * movement, rr.transform.position, ForceMode.VelocityChange);
+    }
 
     public string GetArmWristReadout() {
         return "Arm Position: " + armControlScript.GetArmAngle().ToString() + " Wrist Position: " + wristControlScript.GetWristAngle().ToString();

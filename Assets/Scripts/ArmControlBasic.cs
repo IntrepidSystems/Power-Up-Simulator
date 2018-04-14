@@ -44,12 +44,6 @@ public class ArmControlBasic : MonoBehaviour {
     }
 
     public void SetArmPositionPID(float desiredAngle) {
-        if(desiredAngle < -89.0f) {
-            desiredAngle = -89.0f;
-        } else if(desiredAngle > 57.0f) {
-            desiredAngle = 57.0f;
-        }
-
         float error = desiredAngle - GetArmAngle();
         float output = error * armP;
         

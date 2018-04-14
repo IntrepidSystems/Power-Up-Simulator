@@ -46,12 +46,6 @@ public class WristControlBasic : MonoBehaviour
     }
 
     public void SetWristPositionPID(float desiredAngle) {
-        if(desiredAngle < -65.0f) {
-            desiredAngle = -65.0f;
-        } else if(desiredAngle > 47.0f) {
-            desiredAngle = 47.0f;
-        }
-        
         float error = desiredAngle - GetWristAngle();
         float output = error * wristP;
 
