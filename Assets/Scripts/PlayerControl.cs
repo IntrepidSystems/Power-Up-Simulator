@@ -6,7 +6,7 @@ public class PlayerControl : MonoBehaviour {
 
     public Camera intakingCamera, scoringCamera;
 
-    public GameObject arm, wrist, wristCube, field, cubePrefab;
+    public GameObject fakeArm, fakeWrist, wristCube, field, cubePrefab;
     public GameObject frontWheel, backWheel;
     private ArmControlBasic armControlScript;
     private WristControlBasic wristControlScript;
@@ -25,8 +25,8 @@ public class PlayerControl : MonoBehaviour {
 
 	void Start() {
 		body = GetComponent<Rigidbody>();
-        armControlScript = arm.GetComponent<ArmControlBasic>();
-        wristControlScript = wrist.GetComponent<WristControlBasic>();
+        armControlScript = fakeArm.GetComponent<ArmControlBasic>();
+        wristControlScript = fakeWrist.GetComponent<WristControlBasic>();
 
         armControlScript.armSpeed = 100.0f;
         armControlScript.armP = 1.0f;
@@ -70,7 +70,7 @@ public class PlayerControl : MonoBehaviour {
                     wristControlScript.SetWristPositionPID(70.0f);
                 } else {
                     armControlScript.SetArmPositionPID(70.0f);
-                    wristControlScript.SetWristPositionPID(50.0f);
+                    wristControlScript.SetWristPositionPID(35.0f);
                 }
                 break;
 
@@ -85,7 +85,7 @@ public class PlayerControl : MonoBehaviour {
                 break;
         }
 
-        if(Input.GetAxis("Fire1") > 0.25 && wristCube.active) {
+        if(Input.GetAxis("Fire1") > 0.25 && wristCube.active && !Input.GetKey(KeyCode.Joystick1Button0)) {
             wristCube.SetActive(false);
             GameObject newCube = Instantiate(cubePrefab, wristCube.transform.position + (2.25f * (frontWheel.transform.position - backWheel.transform.position)), wristCube.transform.rotation);
             newCube.GetComponent<CubeIntakeTest>().enabled = true;
@@ -105,21 +105,21 @@ public class PlayerControl : MonoBehaviour {
             backBumper.AddForce(new Vector3(0, -100000.0f * (backBumper.transform.position.y - 6.0f), 0));
         }
 
-        if((currentArmState == ArmState.INTAKE || currentArmState == ArmState.SWITCH)) {
+        if((currentArmState == ArmState.INTAKE || currentArmState == ArmState.SWITCH || currentArmState == ArmState.ZERO)) {
             intakingCamera.enabled = true;
         } else {
             intakingCamera.enabled = false;
         }
-       /* if(currentArmState == ArmState.SCALEBACK && armControlScript.GetArmAngle() < -50.0f && wristControlScript.GetWristAngle() < -20.0f) {
-            scoringCamera.enabled = true;
-        } else {
-            scoringCamera.enabled = false;
-        } */
+        if(currentArmState == ArmState.SCALEBACK) {
+             scoringCamera.enabled = true;
+         } else {
+             scoringCamera.enabled = false;
+         }
     }
 
     void FixedUpdate() {
-        /*Vector3 movement = transform.forward * movementInputValue * Time.deltaTime;
-		float turn = turnInputValue * turnSpeed * Time.deltaTime;
+        /* Vector3 movement = transform.forward * Input.GetAxis("Vertical") * Time.deltaTime;
+		float turn = Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime;
 
 		Quaternion turnRotation = Quaternion.Euler (0f, turn, 0f);
 
@@ -127,10 +127,20 @@ public class PlayerControl : MonoBehaviour {
 
 		body.MoveRotation (body.rotation * turnRotation);
 		body.MovePosition (body.position + movement + upDownForce);
-        body.AddForce(new Vector3(0, transform.position.y * -100000.0f, 0));*/
+        body.AddForce(new Vector3(0, transform.position.y * -100000.0f, 0)); */
 
-        Vector3 movement = (new Vector3(transform.forward.x, 0.0f, transform.forward.z)) * (1 * (Mathf.Sqrt(Mathf.Abs(Input.GetAxis("Vertical"))) * Mathf.Sign(Input.GetAxis("Vertical")))) * maxSpeed * Time.deltaTime;
-        float turn = (Mathf.Pow((Mathf.Abs(Input.GetAxis("Horizontal"))), 4) * Mathf.Sign(Input.GetAxis("Horizontal"))) * turnSpeed * Time.deltaTime;
+        Vector3 movement = Vector3.zero;
+        float turn = 0;
+        if(Mathf.Abs(Input.GetAxis("Vertical")) > 0.2f) {
+            movement = (new Vector3(transform.forward.x, transform.forward.y, transform.forward.z)) * (1 * (Mathf.Sqrt(Mathf.Abs(Input.GetAxis("Vertical"))) * Mathf.Sign(Input.GetAxis("Vertical")))) * maxSpeed * Time.deltaTime;
+        } else {
+            movement = Vector3.zero;
+        }
+        if (Mathf.Abs(Input.GetAxis("Horizontal")) > 0.2f) {
+            turn = (Mathf.Pow((Mathf.Abs(Input.GetAxis("Horizontal"))), 4) * Mathf.Sign(Input.GetAxis("Horizontal"))) * turnSpeed * Time.deltaTime;
+        } else {
+            turn = 0;
+        }
         Vector3 upDownForce = new Vector3(0, transform.position.y * -0.15f, 0);
 
         body.AddRelativeTorque(new Vector3(0, turn, 0));
@@ -140,6 +150,9 @@ public class PlayerControl : MonoBehaviour {
         body.AddForceAtPosition(0.166f * movement, fr.transform.position, ForceMode.VelocityChange);
         body.AddForceAtPosition(0.166f * movement, mr.transform.position, ForceMode.VelocityChange);
         body.AddForceAtPosition(0.166f * movement, rr.transform.position, ForceMode.VelocityChange);
+
+        body.AddForce(-130.0f * body.velocity);
+        body.AddTorque(-60000.0f * body.angularVelocity);
     }
 
     public string GetArmWristReadout() {
