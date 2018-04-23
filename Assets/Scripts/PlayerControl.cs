@@ -92,6 +92,10 @@ public class PlayerControl : MonoBehaviour {
             newCube.GetComponent<Rigidbody>().AddForce((shotStrength * (frontWheel.transform.position - backWheel.transform.position) + body.velocity), ForceMode.VelocityChange);
         }
 
+        if(Input.GetKey(KeyCode.Joystick1Button7)) {
+            Application.LoadLevel(Application.loadedLevel);
+        }
+
         if (leftBumper.transform.position.y > 6) {
             leftBumper.AddForce(new Vector3(0, -100000.0f * (leftBumper.transform.position.y - 6.0f), 0));
         }

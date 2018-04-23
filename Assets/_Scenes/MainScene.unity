@@ -30853,7 +30853,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 832145539}
-  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
+  m_LocalRotation: {x: -0.5224984, y: 0, z: 0, w: 0.8526403}
   m_LocalPosition: {x: -16.900002, y: 50.58, z: 30.470001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -30863,7 +30863,7 @@ Transform:
   - {fileID: 2068938753}
   m_Father: {fileID: 1807331809}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -63, y: 0, z: 0}
 --- !u!114 &832145541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46578,6 +46578,31 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 65027513465499808, guid: c5d70b482370ea24e8cd4818bf8f33ab,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 158.1998
+      objectReference: {fileID: 0}
+    - target: {fileID: 65027513465499808, guid: c5d70b482370ea24e8cd4818bf8f33ab,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 560.3078
+      objectReference: {fileID: 0}
+    - target: {fileID: 65027513465499808, guid: c5d70b482370ea24e8cd4818bf8f33ab,
+        type: 2}
+      propertyPath: m_Center.x
+      value: -236.15001
+      objectReference: {fileID: 0}
+    - target: {fileID: 65027513465499808, guid: c5d70b482370ea24e8cd4818bf8f33ab,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 146.14113
+      objectReference: {fileID: 0}
+    - target: {fileID: 65027513465499808, guid: c5d70b482370ea24e8cd4818bf8f33ab,
+        type: 2}
+      propertyPath: m_Center.z
+      value: 510.01074
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c5d70b482370ea24e8cd4818bf8f33ab, type: 2}
   m_IsPrefabParent: 0
@@ -57028,7 +57053,7 @@ GameObject:
   - component: {fileID: 1554314509}
   - component: {fileID: 1554314511}
   - component: {fileID: 1554314510}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Left Wheel Collider
   m_TagString: Left Intake Wheel
   m_Icon: {fileID: 0}
@@ -57071,7 +57096,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 1, z: 5}
+  m_Size: {x: 10, y: 1, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1554387674
 GameObject:
@@ -60089,14 +60114,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1642540144}
-  m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
+  m_LocalRotation: {x: 0.60876137, y: 0, z: 0, w: 0.7933534}
   m_LocalPosition: {x: 0, y: -0.06, z: -35.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 274733675}
   m_Father: {fileID: 832145540}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 75, y: 0, z: 0}
 --- !u!114 &1642540146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67043,8 +67068,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1807331808}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 130.3, y: 0, z: 15.4}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -98.2, y: 0, z: -320.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1834170968}
@@ -67055,7 +67080,7 @@ Transform:
   - {fileID: 1811432853}
   m_Father: {fileID: 0}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &1807331810
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -77464,7 +77489,7 @@ GameObject:
   - component: {fileID: 2039870093}
   - component: {fileID: 2039870094}
   - component: {fileID: 2039870095}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Right Wheel Collider
   m_TagString: Right Intake Wheel
   m_Icon: {fileID: 0}
@@ -77494,7 +77519,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 1, z: 5}
+  m_Size: {x: 10, y: 1, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2039870095
 MonoBehaviour:
